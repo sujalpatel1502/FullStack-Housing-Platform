@@ -15,6 +15,7 @@ import Register from "./routes/Regioster/register.jsx";
 import SinglePage from "./routes/singlePage/SinglePage.jsx";
 import ProfilePage from "./routes/profilePage/profilePage.jsx";
 import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage.jsx";
+import NewPostPage from "./routes/newPostPage/newPostPage.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -52,9 +53,14 @@ function App() {
           path: "/profile",
           element: <ProfilePage />,
         },
+
         {
           path: "/profile/update",
           element: <ProfileUpdatePage />,
+        },
+        {
+          path: "/add",
+          element: <NewPostPage />,
         },
       ],
     },
