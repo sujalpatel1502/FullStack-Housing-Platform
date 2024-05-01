@@ -16,6 +16,7 @@ import SinglePage from "./routes/singlePage/SinglePage.jsx";
 import ProfilePage from "./routes/profilePage/profilePage.jsx";
 import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage.jsx";
 import NewPostPage from "./routes/newPostPage/newPostPage.jsx";
+import { listPageLoader, singlePageLoader } from "./lib/loaders.js";
 
 function App() {
   const router = createBrowserRouter([
@@ -30,10 +31,12 @@ function App() {
         {
           path: "/list",
           element: <ListPage />,
+          loader:listPageLoader
         },
         {
           path: "/:id",
           element: <SinglePage />,
+          loader:singlePageLoader
         },
         {
           path: "/login",
