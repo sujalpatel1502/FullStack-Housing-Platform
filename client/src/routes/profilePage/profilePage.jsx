@@ -2,13 +2,32 @@ import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
 import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 function ProfilePage() {
+  // const data=useLoaderData();
   const { currentUser, updateUser } = useContext(AuthContext);
+  const [userPosts,setUserPosts]=useState([]);
+  const [savedPosts,setSavedPosts]=useState([])
   const navigate = useNavigate();
+  useEffect(()=>{
+    console.log("callessssss",);
+fetchData();
+  },[])
+
+  const fetchData=async()=>{
+    const res=await axios.get('http://localhost:8800/api/users/profilePosts',{
+      withCredentials: true,  // Include cookies
+    })
+    setUserPosts(res.data.userPosts);
+    setSavedPosts(res.data.savedPosts)
+    console.log('====================================');
+    // console.log("ressssss",res.data.us);
+    console.log('====================================');
+  }
 
   // useEffect(() => {
   //   if (!currentUser) {
@@ -46,7 +65,7 @@ function ProfilePage() {
             <span>
               E-mail: <b>{currentUser?.email}</b>
             </span>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={()=>handleLogout}>Logout</button>
           </div>
           <div className="title">
             <h1>My List</h1>
@@ -54,11 +73,11 @@ function ProfilePage() {
               <button>Create New Post</button>
             </Link>
           </div>
-          <List />
+          <List posts={userPosts} />
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List />
+          <List posts={savedPosts} />
         </div>
       </div>
       <div className="chatContainer">
