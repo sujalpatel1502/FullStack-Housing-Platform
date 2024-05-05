@@ -12,15 +12,25 @@ function ProfilePage() {
   const { currentUser, updateUser } = useContext(AuthContext);
   const [userPosts,setUserPosts]=useState([]);
   const [savedPosts,setSavedPosts]=useState([])
+  const [chatData,setChatData]=useState([])
   const navigate = useNavigate();
   useEffect(()=>{
     console.log("callessssss",);
 fetchData();
+fetchChatData();
   },[])
+
+  const fetchChatData=async()=>{
+    const res=await axios.get('http://localhost:8800/api/chats',{
+      withCredentials: true, 
+    })
+    console.log("resssssss;s;s;s;s;ss",res.data);
+    setChatData(res.data)
+  }
 
   const fetchData=async()=>{
     const res=await axios.get('http://localhost:8800/api/users/profilePosts',{
-      withCredentials: true,  // Include cookies
+      withCredentials: true, 
     })
     setUserPosts(res.data.userPosts);
     setSavedPosts(res.data.savedPosts)
@@ -82,7 +92,7 @@ fetchData();
       </div>
       <div className="chatContainer">
         <div className="wrapper">
-          <Chat />
+          <Chat chatData={chatData}/>
         </div>
       </div>
     </div>

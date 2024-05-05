@@ -5,12 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
 import { AuthContextProvider } from "./context/AuthContext";
+import { SocketContextProvider } from "./context/SocketContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+    <SocketContextProvider>
+    <App />
+    </SocketContextProvider>
+     
     </AuthContextProvider>
   </React.StrictMode>
 );

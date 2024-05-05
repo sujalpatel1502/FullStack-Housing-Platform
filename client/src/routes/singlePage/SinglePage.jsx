@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import DOMPurify from "dompurify";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
+import axios from "axios";
 const SinglePage = () => {
   const post = useLoaderData();
   console.log('====================================');
@@ -29,6 +30,26 @@ const SinglePage = () => {
       setSaved((prev) => !prev);
     }
   };
+
+  const handleChat=async()=>{
+    try {
+      console.log('====================================');
+      console.log("reerererid",post.user);
+      console.log('====================================');
+      
+        const receiverId=post.user.id
+    
+      console.log('====================================');
+      console.log("daaddadadadad",receiverId);
+      console.log('====================================');
+      const res=await axios.post('http://localhost:8800/api/chats',{receiverId},{withCredentials: true,})
+      if(res.data){
+        navigate('/profile')
+      }
+    } catch (error) {
+      
+    }
+  }
   console.log('====================================');
   console.log("cameeeeeeee");
   console.log('====================================');
@@ -144,7 +165,7 @@ const SinglePage = () => {
             <Map items={[post]} />
           </div>
           <div className="buttons">
-            <button>
+            <button onClick={()=>handleChat()}>
               <img src="/chat.png" alt="" />
               Send a Message
             </button>
